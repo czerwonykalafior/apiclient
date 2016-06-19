@@ -1,0 +1,33 @@
+""" API client for the https://api.indix.com/ site """
+
+from urllib2 import urlopen
+from pprint import pprint
+from json import load, dump
+
+BASE_URL = 'https://api.indix.com/'
+AUTH = '&app_id=f1157917&app_key=4237264f6d621706eb68484d7770b582'
+
+specific_url = {
+    "stores" : "/v2/stores",
+    "brans" : "/v2/brands",
+    "categories" : "/v2/categories",
+    "suggestions" : "/v2/products/suggestions",
+    "product_search" : {"offers_standars" : "/v2/offersStandard/products"}
+}
+
+countryCode = '?countryCode=US'
+q= '&q=nik'
+storeId = '&storeId=2732'
+categoryId = '&categoryId=10166'
+
+# joined_url = ''.join((BASE_URL, specific_url['product_search']['offers_standars'], countryCode, storeId, categoryId, AUTH ))
+test_url = 'https://api.indix.com/v2/categories?app_id=f1157917&app_key=4237264f6d621706eb68484d7770b582'
+joined_url = test_url
+
+response = urlopen(joined_url)
+
+json_obj = load(response)
+with open('data.txt', 'a') as f:
+    dump(json_obj, f)
+
+pprint(json_obj)
